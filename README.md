@@ -15,24 +15,6 @@ A production-grade command-line interface (CLI) data engineering utility built t
 * **Result:** Achieved 100% crash-resilient streaming loops over highly asymmetric rows. Converts messy runtime string configurations into clean ISO 8601 formatting, intercepts operating system level directory faults safely, and scales gracefully across large data sheets with a flat horizontal memory allocation signature.
 
 ---
-
-## 📊 Pipeline Architecture
-
-The following data flow map demonstrates how data transitions through our validation layers cleanly:
-
-```mermaid
-graph TD
-    A[Dirty CSV Input Path] --> B[python-dotenv Directory Check]
-    B --> C{Is Directory Secure?}
-    C -- No --> D[Graceful Safety Exit]
-    C -- Yes --> E[Stream Row-by-Row Iterator]
-    E --> F{Validate Column Dimensions}
-    F -- Misaligned Columns --> G[Isolate Malformed Row to Error Log]
-    F -- Structural Match --> H[Strip Hidden Bytes / Whitespace]
-    H --> I[Parse and Convert Date to ISO 8601]
-    I --> J[Write Clean Output Stream File]
-
-
 ⚙️ Environment Setup & Installation
 1. Initialize the Virtual Workspace
 Isolate the project dependency layout from your global system environment:
@@ -64,4 +46,22 @@ Execute full system assertion validations via the explicit Python module path la
 PowerShell
 python -m pytest -v
 
-Save your file after pasting this text, then commit and push it. GitHub will now automat
+Save your file after pasting this text, then commit and push it. GitHub will now automate
+
+## 📊 Pipeline Architecture
+
+The following data flow map demonstrates how data transitions through our validation layers cleanly:
+
+```mermaid
+graph TD
+    A[Dirty CSV Input Path] --> B[python-dotenv Directory Check]
+    B --> C{Is Directory Secure?}
+    C -- No --> D[Graceful Safety Exit]
+    C -- Yes --> E[Stream Row-by-Row Iterator]
+    E --> F{Validate Column Dimensions}
+    F -- Misaligned Columns --> G[Isolate Malformed Row to Error Log]
+    F -- Structural Match --> H[Strip Hidden Bytes / Whitespace]
+    H --> I[Parse and Convert Date to ISO 8601]
+    I --> J[Write Clean Output Stream File]
+
+
