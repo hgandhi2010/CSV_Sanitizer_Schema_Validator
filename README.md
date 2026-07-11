@@ -54,14 +54,42 @@ The following data flow map demonstrates how data transitions through our valida
 
 ```mermaid
 graph TD
-    A[Dirty CSV Input Path] --> B[python-dotenv Directory Check]
-    B --> C{Is Directory Secure?}
-    C -- No --> D[Graceful Safety Exit]
-    C -- Yes --> E[Stream Row-by-Row Iterator]
-    E --> F{Validate Column Dimensions}
-    F -- Misaligned Columns --> G[Isolate Malformed Row to Error Log]
-    F -- Structural Match --> H[Strip Hidden Bytes / Whitespace]
-    H --> I[Parse and Convert Date to ISO 8601]
-    I --> J[Write Clean Output Stream File]
+    %% Define Node Styles & Themes
+    classDef input fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#0D47A1;
+    classDef process fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px,color:#E65100;
+    classDef decision fill:#EDE7F6,stroke:#5E35B1,stroke-width:2px,color:#4A148C;
+    classDef success fill:#E8F5E9,stroke:#43A047,stroke-width:2px,color:#1B5E20;
+    classDef failure fill:#FFEBEE,stroke:#E53935,stroke-width:2px,color:#B71C1C;
 
+    %% Workflow Nodes
+    A([📥 Raw Dirty CSV Input]) --> B[⚙️ Load Environment Context via python-dotenv]
+    
+    B --> C{🔍 Is Directory Path Valid?}
+    class C decision;
 
+    C -- No --> D[❌ Graceful Safety Exit & Log Configuration Fault]
+    class D failure;
+
+    C -- Yes --> E[🔄 Initialize Row-by-Row Data Streaming Loop]
+    class E process;
+
+    E --> F{📐 Validate Column Schema Dimensions}
+    class F decision;
+
+    F -- Column Mismatch --> G[⚠️ Isolate Malformed Row to Error Log]
+    class G failure;
+
+    F -- Valid Dimensions --> H[🪥 Clean Whitespace & Strip Hidden Bytes]
+    class H process;
+
+    H --> I[📅 Standardize Dynamic Dates to ISO 8601]
+    class I process;
+
+    I --> J[📤 Write Sanitized Row to Output Stream]
+    class J process;
+
+    J --> K([✨ Clean Standardized CSV File Completed])
+
+    %% Apply Classes
+    class A input;
+    class K success;
