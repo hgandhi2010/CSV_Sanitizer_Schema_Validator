@@ -1,0 +1,6 @@
+transaction_id,customer_name,join_date,account_role
+TXN001,Hemin Gandhi\t,2026-07-11,Admin
+TXN002,Alice Smith,2026-07-11,User
+TXN004,Bob Jones,2026-07-11,Moderator
+TXN006,\ufeffCharlie Brown,2026-07-11,User
+TXN007,Diana Prince,2026-11-07,Guest

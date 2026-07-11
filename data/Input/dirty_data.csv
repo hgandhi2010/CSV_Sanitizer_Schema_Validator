@@ -1,0 +1,8 @@
+transaction_id,customer_name,join_date,account_role
+TXN001,  Hemin Gandhi\t ,07/11/2026,Admin
+TXN002,Alice Smith,2026-07-11 09:25:00,User
+TXN003,Corrupt Line Break,11-07-2026
+TXN004,  Bob Jones  ,2026/07/11,Moderator
+TXN005,Exploit,Malformed,Row,Data,2026-07-11,User
+TXN006,\ufeffCharlie Brown,07/11/2026,User
+TXN007,  Diana Prince  ,11-07-2026,Guest
