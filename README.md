@@ -48,44 +48,36 @@ python -m pytest -v
 
 📊 Pipeline Architecture
 The following data flow map demonstrates how data transitions through our validation layers cleanly:
+```mermaid.js
 graph TD
-    %% Define Node Styles & Themes
-    classDef input fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#0D47A1;
-    classDef process fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px,color:#E65100;
-    classDef decision fill:#EDE7F6,stroke:#5E35B1,stroke-width:2px,color:#4A148C;
-    classDef success fill:#E8F5E9,stroke:#43A047,stroke-width:2px,color:#1B5E20;
-    classDef failure fill:#FFEBEE,stroke:#E53935,stroke-width:2px,color:#B71C1C;
+    %% Base Color Layout Schemes
+    classDef input fill:#0d47a1,stroke:#1565c0,stroke-width:2px,color:#ffffff;
+    classDef process fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#f8fafc;
+    classDef decision fill:#311b92,stroke:#673ab7,stroke-width:2px,color:#ffffff;
+    classDef success fill:#1b5e20,stroke:#2e7d32,stroke-width:2px,color:#ffffff;
+    classDef failure fill:#b71c1c,stroke:#c62828,stroke-width:2px,color:#ffffff;
 
-    %% Workflow Nodes
-    A([📥 Raw Dirty CSV Input]) --> B[⚙️ Load Environment Context via python-dotenv]
+    %% Data Pipeline Node Tree Map
+    A([📥 Raw Dirty CSV Input Target]) --> B[⚙️ Load Environment Config via python-dotenv]
+    B --> C{🔍 Is Directory Valid?}
     
-    B --> C{🔍 Is Directory Path Valid?}
-    class C decision;
+    C -- Path Fault --> D[❌ Abort Loop & Log Configuration Fault]
+    C -- Valid Path --> E[🔄 Stream Row-by-Row Active Iterator]
+    
+    E --> F{📐 Check Column Schema Dimensions}
+    
+    F -- Size Mismatch --> G[⚠️ Route Malformed Row to Fault Log]
+    F -- Uniform Schema --> H[🪥 Clean Whitespace & Strip Hidden Bytes]
+    
+    H --> I[📅 Standardize Mixed Timestamps to ISO 8601]
+    I --> J[📤 Commit Sanitized Payload to Stream Buffer]
+    J --> K([✨ Complete Production CSV File Pipeline])
 
-    C -- No --> D[❌ Graceful Safety Exit & Log Configuration Fault]
-    class D failure;
-
-    C -- Yes --> E[🔄 Initialize Row-by-Row Data Streaming Loop]
-    class E process;
-
-    F -- Column Mismatch --> G[⚠️ Isolate Malformed Row to Error Log]
-    class G failure;
-
-    F -- Valid Dimensions --> H[🪥 Clean Whitespace & Strip Hidden Bytes]
-    class H process;
-
-    H --> I[📅 Standardize Dynamic Dates to ISO 8601]
-    class I process;
-
-    I --> J[📤 Write Sanitized Row to Output Stream]
-    class J process;
-
-    J --> K([✨ Clean Standardized CSV File Completed])
-
-    %% Apply Classes
+    %% Dynamic Class Injections
     class A input;
+    class C,F decision;
+    class B,E,H,I,J process;
+    class D,G failure;
     class K success;
-
-
-
+```
 
