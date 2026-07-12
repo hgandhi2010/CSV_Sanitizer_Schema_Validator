@@ -1,5 +1,6 @@
 import pytest
-from src.main import clean_whitespace, parse_to_iso_8601, validate_row_schema
+
+from CSV_Sanitizer.core import clean_whitespace, parse_to_iso_8601, validate_row_schema
 
 
 # ==============================================================================
