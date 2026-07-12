@@ -1,0 +1,8 @@
+# Production Core
+python-dotenv==1.0.1 # Masking your directory configurations safely out of the code.
+# Defensive Parsing Utilities
+python-dateutil==2.9.0.post0 # A lightweight helper library that can smart-parse almost any messy dynamic date 
+                             # string into a clean ISO 8601 format without requiring complex regex.
+
+# Tiny Testing Suite
+pytest==8.2.2 # The ultra-clean, industry-standard lightweight framework for testing your isolated edge-case functions.

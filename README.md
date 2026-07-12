@@ -15,44 +15,39 @@ A production-grade command-line interface (CLI) data engineering utility built t
 * **Result:** Achieved 100% crash-resilient streaming loops over highly asymmetric rows. Converts messy runtime string configurations into clean ISO 8601 formatting, intercepts operating system level directory faults safely, and scales gracefully across large data sheets with a flat horizontal memory allocation signature.
 
 ---
-⚙️ Environment Setup & Installation
+
+## ⚙️ Environment Setup & Installation
+
 1. Initialize the Virtual Workspace
 Isolate the project dependency layout from your global system environment:
 
-PowerShell
+```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
+```
+
 2. Dependency Ingestion
 Install the concrete engine components into your active virtual bubble:
-
-PowerShell
 python -m pip install python-dotenv python-dateutil pytest
+
 3. Environment Context
 Create an .env file in the root workspace directory to configure engine file streams dynamically:
-
-Code snippet
 TARGET_INPUT_DIR=./data/Input
 CLEAN_OUTPUT_DIR=./data/Output
 ERROR_LOG_PATH=./data/Output/malformed_rows.log
+
 🚀 Execution & Verification Pipelines
 Core Pipeline Execution
 To ingest, sanitize, and execute the core cleaning loops against your raw data targets:
-
-PowerShell
 python .\Src\main.py
+
 Test Suite Validation
 Execute full system assertion validations via the explicit Python module path layer:
-
-PowerShell
 python -m pytest -v
 
-Save your file after pasting this text, then commit and push it. GitHub will now automate
 
-## 📊 Pipeline Architecture
-
+📊 Pipeline Architecture
 The following data flow map demonstrates how data transitions through our validation layers cleanly:
-
-```mermaid
 graph TD
     %% Define Node Styles & Themes
     classDef input fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#0D47A1;
@@ -73,9 +68,6 @@ graph TD
     C -- Yes --> E[🔄 Initialize Row-by-Row Data Streaming Loop]
     class E process;
 
-    E --> F{📐 Validate Column Schema Dimensions}
-    class F decision;
-
     F -- Column Mismatch --> G[⚠️ Isolate Malformed Row to Error Log]
     class G failure;
 
@@ -93,3 +85,7 @@ graph TD
     %% Apply Classes
     class A input;
     class K success;
+
+
+
+
