@@ -48,7 +48,6 @@ python -m pytest -v
 
 📊 Pipeline Architecture
 The following data flow map demonstrates how data transitions through our validation layers cleanly:
-```mermaid.js
 graph TD
     %% Base Color Layout Schemes
     classDef input fill:#0d47a1,stroke:#1565c0,stroke-width:2px,color:#ffffff;
@@ -77,6 +76,8 @@ graph TD
     class A input;
     class C,F decision;
     class B,E,H,I,J process;
+    class D,G failure;
+    class K success;
     class D,G failure;
     class K success;
 ```
